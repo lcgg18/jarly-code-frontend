@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar {
+  @apply w-64 shadow flex-col justify-between ;
+}
+
+.sidebar{
+  background-color:#06d6a0
+}
+.sidebar-route {
+  @apply rounded-md flex w-full justify-between cursor-pointer items-center m-3 p-3;
+}
+
+.input {
+  @apply p-2 border border-indigo-200 focus:outline-none focus:border-indigo-800 rounded-md shadow-lg;
+}
