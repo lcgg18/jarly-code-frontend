@@ -12,6 +12,8 @@ const Proyectos = () => {
 
   if (error) return <div>Error...</div>;
 
+
+
   return (
     <div>
       <Link to={`/proyectos/crear/`}>
@@ -23,7 +25,7 @@ const Proyectos = () => {
         </button>
       </Link>
       <br />
-      
+
       Datos Proyectos:
       <br />
       <table className="tabla">
@@ -50,8 +52,12 @@ const Proyectos = () => {
                 <tr key={p._id}>
                   <td>{p.nombre}</td>
                   <td>{p.presupuesto}</td>
-                  <td>{p.fechaInicio.slice(0, 10)}</td>
+                  {p.fechaInicio ? (
+                    <td>{p.fechaInicio.slice(0, 10)}</td>
+                  ) : <td>'Por Iniciar'</td>}
+                  {p.fechaFin ? (
                   <td>{p.fechaFin.slice(0, 10)}</td>
+                  ) : <td>'No aplica'</td>}
                   <td>{Enum_EstadoProyecto[p.estado]}</td>
                   <td>{Enum_FaseProyecto[p.fase]}</td>
                   <td>
