@@ -10,6 +10,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 import { toast } from 'react-toastify';
+import Logo from 'components/Logo';
 
 
 const Registro = () => {
@@ -40,7 +41,8 @@ const Registro = () => {
     }});
 
   return (
-    <div className='flex flex-col h-full w-full items-center justify-center'>
+    <div className='flex flex-col h-full w-full items-center justify-center bg-blue-500'>
+      <Logo/>
       <h1 className='text-3xl font-bold my-4'>Regístrate</h1>
       <form className='flex flex-col' onSubmit={submitForm} onChange={updateFormData} ref={form}>
         <div className='grid grid-cols-2 gap-5'>
@@ -59,7 +61,7 @@ const Registro = () => {
       </form>
       <span>¿Ya tienes una cuenta?</span>
       <Link to='/auth/login'>
-        <span className='text-blue-700'>Inicia sesión</span>
+        <span className='text-white'>Inicia sesión</span>
       </Link>
     </div>
   );

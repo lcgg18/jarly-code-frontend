@@ -24,6 +24,7 @@ import EstudiantesProyecto from "pages/estudiantes/EstudiantesProyecto";
 import AuthLayout from "layouts/AuthLayout";
 import Registro from "pages/auth/Registro";
 import Login from "pages/auth/Login";
+import Perfil from "pages/usuarios/Perfil";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -49,7 +50,7 @@ const httpLink = createHttpLink({
   });
 
 const AppRouter = () => {
-    const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({});
   const [authToken, setAuthToken] = useState("");
 
   const setToken = (token) => {
@@ -83,6 +84,7 @@ const AppRouter = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<PrivateLayout />}>
+                <Route path="perfil" element={<Perfil />}/>
                 <Route path="" element={<Index />} />
                 <Route path="usuarios/" element={<Usuarios />} />
                 <Route
