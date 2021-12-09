@@ -54,10 +54,10 @@ const Proyectos = () => {
                   <td>{p.presupuesto}</td>
                   {p.fechaInicio ? (
                     <td>{p.fechaInicio.slice(0, 10)}</td>
-                  ) : <td>'Por Iniciar'</td>}
+                  ) : <td>  Por Iniciar</td>}
                   {p.fechaFin ? (
                   <td>{p.fechaFin.slice(0, 10)}</td>
-                  ) : <td>'No aplica'</td>}
+                  ) : <td>  No aplica</td>}
                   <td>{Enum_EstadoProyecto[p.estado]}</td>
                   <td>{Enum_FaseProyecto[p.fase]}</td>
                   <td>

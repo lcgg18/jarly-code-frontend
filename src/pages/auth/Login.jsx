@@ -8,7 +8,7 @@ import { LOGIN } from 'graphql/auth/mutations';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Logo from 'components/Logo';
+import {Logo} from 'components/Logo';
 
 const Login = () => {
   const navigate = useNavigate();

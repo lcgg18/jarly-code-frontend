@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router';
 import { useAuth } from 'context/authContext';
 import { toast } from 'react-toastify';
-import Logo from 'components/Logo';
+import {Logo} from 'components/Logo';
 
 
 const Registro = () => {

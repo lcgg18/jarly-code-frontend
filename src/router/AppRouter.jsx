@@ -25,6 +25,7 @@ import AuthLayout from "layouts/AuthLayout";
 import Registro from "pages/auth/Registro";
 import Login from "pages/auth/Login";
 import Perfil from "pages/usuarios/Perfil";
+import EditarPerfil from "pages/auth/EditarPerfil";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -32,6 +33,7 @@ import Perfil from "pages/usuarios/Perfil";
 const httpLink = createHttpLink({
     uri:"http://localhost:4000/graphql",
     // uri: process.env.REACT_APP_HTTP_LINK,
+    // uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
   });
   
   const authLink = setContext((_, { headers }) => {
@@ -85,12 +87,17 @@ const AppRouter = () => {
             <Routes>
               <Route path="/" element={<PrivateLayout />}>
                 <Route path="perfil" element={<Perfil />}/>
+
                 <Route path="" element={<Index />} />
                 <Route path="usuarios/" element={<Usuarios />} />
                 <Route
                   path="usuarios/editar/:_id"
                   element={<EditarUsuario />}
                 />
+                <Route
+                  path="perfil/editar/:_id"
+                  element={<EditarPerfil />}
+                />                 
                 <Route
                   path="proyectos/editar/:_id"
                   element={<EditarProyecto />}
