@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GET_AVANCES } from "graphql/avance/queries";
 
 const AvancesProyecto = () => {
-  const { loading, error, data } = useQuery(GET_AVANCES);
-
+  const  {_id}  = useParams();
+  // const idProyecto = toString(_id);
+  console.log(_id);
+  const { loading, error, data } = useQuery(GET_AVANCES, { 
+    variables: {idProyecto:_id}
+  });
+useEffect((data) => {console.log("data",data)},[data])
+if(data){
+  console.log("data if", data)
+}
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
@@ -26,7 +34,7 @@ const AvancesProyecto = () => {
         </thead>
         <tbody>
           {data &&
-            data.Avances.map((a) => {
+            data.filtrarAvance.map((a) => {
               return (
                 <tr key={a._id}>
                   <td>{a.fecha.slice(0, 10)}</td>

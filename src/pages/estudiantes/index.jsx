@@ -6,7 +6,11 @@ import { Enum_Rol } from 'utils/enums';
 import { Enum_EstadoUsuario } from 'utils/enums';
 
 const Estudiantes = () => {
-  const { loading, error, data } = useQuery(GET_ESTUDIANTE);
+  const { loading, error, data } = useQuery(GET_ESTUDIANTE, {
+    variables: {
+      rol: 'ESTUDIANTE',
+    }
+  });
 
   if (loading) return <div>Loading...</div>;
 

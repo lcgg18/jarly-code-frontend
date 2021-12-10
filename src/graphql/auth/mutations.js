@@ -32,6 +32,27 @@ const LOGIN = gql`
   }
 `;
 
+const EDITAR_PERFIL=gql`
+mutation EditarPerfil(
+  $id: String!
+  $nombre: String
+  $apellido: String
+  $password: String
+  $identificacion: String
+  $correo: String
+) {
+  editarPerfil(
+    _id: $id
+    nombre: $nombre
+    apellido: $apellido
+    password: $password
+    identificacion: $identificacion
+    correo: $correo
+  )
+}
+
+`;
+
 const REFRESH_TOKEN = gql`
   mutation RefreshToken {
     refreshToken {
@@ -41,4 +62,4 @@ const REFRESH_TOKEN = gql`
   }
 `;
 
-export { REGISTRO, LOGIN, REFRESH_TOKEN };
+export { REGISTRO, LOGIN, REFRESH_TOKEN, EDITAR_PERFIL };

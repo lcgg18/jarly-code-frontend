@@ -28,16 +28,16 @@ const GET_USUARIO = gql`
   }
 `;
 const GET_ESTUDIANTE = gql`
-  query Estudiantes {
-    Estudiantes(rol: "ESTUDIANTE") {
-      _id
-      nombre
-      apellido
-      identificacion
-      correo
-      rol
-      estado
-    }
+ query Avances($rol: Enum_Rol!) {
+  Estudiantes(rol: $rol) {
+    _id
+    nombre
+    apellido
+    identificacion
+    correo
+    rol
+    estado
   }
+}
 `;
 export { GET_USUARIOS, GET_USUARIO, GET_ESTUDIANTE };
