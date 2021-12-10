@@ -27,6 +27,21 @@ const GET_USUARIO = gql`
     }
   }
 `;
+
+const GET_USUARIOS_FILTRADOS = gql`
+  query Query($filtro: FiltroUsuarios) {
+    Usuarios(filtro: $filtro) {
+      _id
+      nombre
+      apellido
+      correo
+      estado
+      identificacion
+      rol
+    }
+  }
+`;
+
 const GET_ESTUDIANTE = gql`
  query Avances($rol: Enum_Rol!) {
   Estudiantes(rol: $rol) {
@@ -40,4 +55,4 @@ const GET_ESTUDIANTE = gql`
   }
 }
 `;
-export { GET_USUARIOS, GET_USUARIO, GET_ESTUDIANTE };
+export { GET_USUARIOS, GET_USUARIO, GET_ESTUDIANTE, GET_USUARIOS_FILTRADOS };

@@ -18,7 +18,6 @@ import Proyectos from "pages/proyecto";
 import Usuarios from "pages/usuarios/index";
 import EditarProyecto from "pages/proyecto/EditarProyecto";
 import AvancesProyecto from "pages/proyecto/AvancesProyecto";
-import CrearProyecto from "pages/proyecto/CrearProyecto";
 import ObjetivosProyecto from "pages/proyecto/ObjetivosProyecto";
 import EstudiantesProyecto from "pages/estudiantes/EstudiantesProyecto";
 import AuthLayout from "layouts/AuthLayout";
@@ -26,14 +25,15 @@ import Registro from "pages/auth/Registro";
 import Login from "pages/auth/Login";
 import Perfil from "pages/usuarios/Perfil";
 import EditarPerfil from "pages/auth/EditarPerfil";
+import NuevoProyecto from "pages/proyecto/CrearProyecto";
 
 // import PrivateRoute from 'components/PrivateRoute';
 
 
 const httpLink = createHttpLink({
-    uri:"http://localhost:4000/graphql",
+    // uri:"http://localhost:4000/graphql",
     // uri: process.env.REACT_APP_HTTP_LINK,
-    // uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
+    uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
   });
   
   const authLink = setContext((_, { headers }) => {
@@ -110,7 +110,7 @@ const AppRouter = () => {
                   path="proyectos/objetivos/:_id"
                   element={<ObjetivosProyecto />}
                 />
-                <Route path="proyectos/crear" element={<CrearProyecto />} />
+                <Route path="proyectos/crear" element={<NuevoProyecto />} />
                 <Route
                   path="/estudiantes/proyecto/:_id"
                   element={<EstudiantesProyecto />}
