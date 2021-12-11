@@ -9,6 +9,10 @@
 .sidebar{
   background-color:#06d6a0
 }
+
+html{
+  overflow-y: hidden
+}
 .sidebar-route {
   @apply rounded-md flex w-full justify-between cursor-pointer items-center m-3 p-3;
 }

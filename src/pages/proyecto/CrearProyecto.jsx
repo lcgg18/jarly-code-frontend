@@ -20,17 +20,17 @@ const NuevoProyecto = () => {
   const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
     useMutation(CREAR_PROYECTO);
 
- 
-  // const lider = userData._id;
 
   const submitForm = (e) => {
     e.preventDefault();
-
+    console.log(formData)
     formData.objetivos = Object.values(formData.objetivos);
     formData.presupuesto = parseFloat(formData.presupuesto);
-console.log("formData",formData);
+    formData.lider = userData._id
+    
+
     crearProyecto({
-      variables:{lider:userData._id, ...formData},
+      variables: formData,
     });
   };
 
@@ -63,7 +63,7 @@ console.log("formData",formData);
         <Input name='nombre' label='Nombre del Proyecto' required={true} type='text' />
         <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
         <span>Lider del proyecto: {userData.nombre}</span>
-        <Objetivos/>
+        <Objetivos />
         <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
       </form>
     </div>
@@ -116,7 +116,7 @@ const FormObjetivo = ({ id }) => {
       <Input
         name={`nested||objetivos||${id}||descripcion`}
         label='Descripción'
-        type='text'
+        type='textarea'
         required={true}
       />
       <DropDown
