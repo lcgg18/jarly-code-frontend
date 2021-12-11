@@ -11,20 +11,20 @@ const EDITAR_PROYECTO = gql`
 
 const CREAR_PROYECTO = gql`
   mutation CrearProyecto(
-    $nombre: String!
-    $presupuesto: Float!
-    $lider: String!
-    $objetivos: [crearObjetivo]
+  $nombre: String!
+  $presupuesto: Float!
+  $lider: String!
+  $objetivos: [crearObjetivo]
+) {
+  crearProyecto(
+    nombre: $nombre
+    presupuesto: $presupuesto
+    lider: $lider
+    objetivos: $objetivos
   ) {
-    crearProyecto(
-      nombre: $nombre
-      presupuesto: $presupuesto
-      lider: $lider
-      objetivos: $objetivos
-    ) {
-      _id
-    }
+    nombre
   }
+}
 `;
 
 export { EDITAR_PROYECTO, CREAR_PROYECTO };

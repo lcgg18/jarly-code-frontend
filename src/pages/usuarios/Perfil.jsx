@@ -14,7 +14,7 @@ const Perfil = () => {
     return (
         <div className='flex flex-col items-center  w-full h-full p-20 my-6'>
             <Avatar/>
-            <h1 className='text-3xl p-4 my-6 font-bold'>Perfil de usuario</h1>
+            <h1 className='text-3xl p-4 my-6 font-bold'>Perfil del Usuario</h1>
             <div className='flex flex-col border-4 p-10 rounded-3xl'>
                 <div className='p-2 text-2xl'>Nombre: {userData.nombre}</div>
                 <div className='p-2 text-2xl'>Apellido: {userData.apellido}</div>

@@ -51,7 +51,7 @@ const Logo = () => {
   return (
     <div className="py-3 w-full flex flex-col items-center justify-center rounded-xld-m">
       <img src="jarlyLogo.png" alt="Logo" className="h-17 rounded-2xl" />
-      <span className="my-4 text-2xl font-bold text-center">
+      <span className="my-4 text-xl font-bold text-center">
         Modulo de Gestión
       </span>
     </div>

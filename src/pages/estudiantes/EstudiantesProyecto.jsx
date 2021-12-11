@@ -37,7 +37,7 @@ const EstudiantesProyecto = () => {
             <th>Identificación</th>
             <th>Rol</th>
             <th>Estado Inscription</th>
-            <th>Aprobar</th>
+            <th>Aceptar</th>
             <th>Rechazar</th>
           </tr>
         </thead>
