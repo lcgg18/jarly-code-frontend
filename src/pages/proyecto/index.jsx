@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { GET_PROYECTOS } from "graphql/proyecto/queries";
 import { Enum_EstadoProyecto } from "utils/enums";
 import { Enum_FaseProyecto } from "utils/enums";
+import PrivateComponent from "components/PrivateComponet";
 
 const Proyectos = () => {
   const { loading, error, data } = useQuery(GET_PROYECTOS);
@@ -16,7 +17,8 @@ const Proyectos = () => {
 
   return (
     <div>
-      <Link to={`/proyectos/crear/`}>
+      <PrivateComponent roleList={['LIDER']}>
+        <Link to={`/proyectos/crear/`}>
         <button
           type="submit"
           className="bg-blue-500 text-white font-bold text-lg py-3 px-6  rounded-xl hover:bg-green-600 shadow-md my-2 disabled:opacity-50 disabled:bg-gray-700"
@@ -24,6 +26,8 @@ const Proyectos = () => {
           Crear un proyecto
         </button>
       </Link>
+      </PrivateComponent>
+      
       <br />
 
       Datos Proyectos:
@@ -39,7 +43,7 @@ const Proyectos = () => {
             <th>Fase</th>
             <th>Nombre del lider</th>
             <th>Correo del lider</th>
-            <th>Integrantes</th>
+            <th>Estudiantes</th>
             <th>Objetivos</th>
             <th>Avances</th>
             <th>Editar</th>

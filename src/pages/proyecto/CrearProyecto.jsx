@@ -17,22 +17,20 @@ const NuevoProyecto = () => {
   const {userData} = useUser();
   const { form, formData, updateFormData } = useFormData();
   
- 
-
   const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
     useMutation(CREAR_PROYECTO);
 
  
-  const lider = userData._id;
+  // const lider = userData._id;
 
   const submitForm = (e) => {
     e.preventDefault();
 
     formData.objetivos = Object.values(formData.objetivos);
     formData.presupuesto = parseFloat(formData.presupuesto);
-
+console.log("formData",formData);
     crearProyecto({
-      variables:{lider, ...formData},
+      variables:{lider:userData._id, ...formData},
     });
   };
 
