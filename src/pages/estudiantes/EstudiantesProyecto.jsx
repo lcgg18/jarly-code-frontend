@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
 import { useQuery } from '@apollo/client';
 import { Enum_Rol } from 'utils/enums';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const EstudiantesProyecto = () => {
 
+    const {_id} = useParams();
     const { loading, error, data } = useQuery(GET_INSCRIPCIONES,{
-        variables:{proyecto: "6199042cc458c97634aa742c"}
+        variables:{ 
+            filtro:{ proyecto : _id
+
+        }}
     });
 
-    useEffect(() => {
-      console.log(data)
-    }, [data])
-
-    if (data){
-        console.log(data)
-    }
+    
 
     if (loading) return <div>Loading...</div>;
 
@@ -24,7 +22,12 @@ const EstudiantesProyecto = () => {
 
     return (
         <div>
-            Datos Usuarios: 
+            <div className='self-start p-3'>
+        <Link to='/proyectos'>
+          <i className='fas fa-arrow-left' />
+        </Link>
+        <h1 className='font-bold text-xl'>Estudiantes Inscripto</h1>
+      </div>
       <table className='tabla'>
         <thead>
           <tr>
@@ -51,12 +54,12 @@ const EstudiantesProyecto = () => {
                   <td>{i.estado}</td>
                   <td>
                     <Link to={`/usuarios/editar/${i._id}`}>
-                      <i className='fas fa-check text-green-500 hover:text-yellow-400 cursor-pointer' />
+                      <i className='fas fa-check text-green-500 hover:text-green-800 cursor-pointer' />
                     </Link>
                   </td>
                   <td>
                     <Link to={`/usuarios/editar/${i._id}`}>
-                      <i className='fas fa-ban text-red-500 hover:text-yellow-400 cursor-pointer' />
+                      <i className='fas fa-ban text-red-500 hover:text-red-800 cursor-pointer' />
                     </Link>
                   </td>
                 </tr>

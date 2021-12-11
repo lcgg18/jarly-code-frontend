@@ -15,9 +15,12 @@ const SidebarLinks = () => {
       </PrivateRoute>
 
       <SidebarRoute to="/perfil" title="Perfil" icon="fas fa-id-badge" />
+      <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR']}>
+        <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
+      </PrivateRoute>
+        
       
       <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
-        <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
         <SidebarRoute to="/proyectos" title="Proyectos" icon="fas fa-tasks" />
       </PrivateRoute>
 

@@ -20,7 +20,12 @@ if(data){
 
   return (
     <div>
-      Datos Usuarios:
+      <div className='self-start p-3'>
+        <Link to='/proyectos'>
+          <i className='fas fa-arrow-left' />
+        </Link>
+        <h1 className='font-bold text-xl'>Avances del Proyecto</h1>
+      </div>
       <table className="tabla">
         <thead>
           <tr>
