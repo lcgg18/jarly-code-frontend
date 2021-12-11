@@ -10,17 +10,15 @@ const SidebarLinks = () => {
     <ul className="mt-6">
 
       <h3 className="flex items-center justify-center text-xl mx-3 font-semibold">Hola... {userData.nombre}</h3>
+      <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
+        <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
+      </PrivateRoute>
+
       <SidebarRoute to="/perfil" title="Perfil" icon="fas fa-id-badge" />
       
       <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
-        <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
         <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
         <SidebarRoute to="/proyectos" title="Proyectos" icon="fas fa-tasks" />
-        <SidebarRoute
-          to="/estudiantes"
-          title="Estudiantes"
-          icon="fas fa-user-friends"
-        />
       </PrivateRoute>
 
       <Logout />
