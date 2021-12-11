@@ -1,6 +1,6 @@
+import React from 'react'
 import { useQuery } from '@apollo/client';
 import { GET_PROYECTO } from 'graphql/proyecto/queries';
-import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { Enum_TipoObjecto } from 'utils/enums';
 
@@ -17,7 +17,12 @@ const ObjetivosProyecto = () => {
 
     return (
         <div className='p-5'>
-        Objetivos proyectos: 
+        <div className='self-start p-3'>
+        <Link to='/proyectos'>
+          <i className='fas fa-arrow-left' />
+        </Link>
+        <h1 className='font-bold text-xl'>Objetivos del Proyecto</h1>
+      </div>
           
       <table className='tabla'>
         <thead>

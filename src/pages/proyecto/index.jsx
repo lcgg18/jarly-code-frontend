@@ -17,7 +17,7 @@ const Proyectos = () => {
 
   return (
     <div>
-      <PrivateComponent roleList={['LIDER']}>
+      <PrivateComponent roleList={['LIDER', 'ADMINISTRADOR']}>
         <Link to={`/proyectos/crear/`}>
         <button
           type="submit"
@@ -28,10 +28,9 @@ const Proyectos = () => {
       </Link>
       </PrivateComponent>
       
-      <br />
-
-      Datos Proyectos:
-      <br />
+      <div className='self-start p-3'>
+        <h1 className='font-bold text-xl'>Datos del Proyecto</h1>
+      </div>
       <table className="tabla">
         <thead>
           <tr>
