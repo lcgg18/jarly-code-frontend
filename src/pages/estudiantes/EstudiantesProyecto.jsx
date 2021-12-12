@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GET_INSCRIPCIONES } from 'graphql/inscripcion/queries';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Enum_Rol } from 'utils/enums';
 import { Link, useParams } from 'react-router-dom';
+import { APROBAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
+import { toast } from 'react-toastify';
+import ButtonLoading2 from 'components/ButtonLoading2';
+import { Enum_EstadoInscripcion } from 'utils/enums';
 
 const EstudiantesProyecto = () => {
 
@@ -26,7 +30,7 @@ const EstudiantesProyecto = () => {
         <Link to='/proyectos'>
           <i className='fas fa-arrow-left' />
         </Link>
-        <h1 className='font-bold text-xl'>Estudiantes Inscripto</h1>
+        <h1 className='font-bold text-xl'>Estudiantes Inscrito</h1>
       </div>
       <table className='tabla'>
         <thead>
@@ -36,7 +40,7 @@ const EstudiantesProyecto = () => {
             <th>Correo</th>
             <th>Identificación</th>
             <th>Rol</th>
-            <th>Estado Inscription</th>
+            <th>Estado Inscripción</th>
             <th>Aceptar</th>
             <th>Rechazar</th>
           </tr>
@@ -51,11 +55,9 @@ const EstudiantesProyecto = () => {
                   <td>{i.estudiante.correo}</td>
                   <td>{i.estudiante.identificacion}</td>
                   <td>{Enum_Rol[i.estudiante.rol]}</td>
-                  <td>{i.estado}</td>
+                  <td>{Enum_EstadoInscripcion[i.estado]}</td>
                   <td>
-                    <Link to={`/usuarios/editar/${i._id}`}>
-                      <i className='fas fa-check text-green-500 hover:text-green-800 cursor-pointer' />
-                    </Link>
+                    <Inscripcion  />
                   </td>
                   <td>
                     <Link to={`/usuarios/editar/${i._id}`}>
@@ -70,5 +72,55 @@ const EstudiantesProyecto = () => {
         </div>
     )
 }
+
+const Inscripcion = () => {
+  const {_id} = useParams();
+    const {  data:qdata } = useQuery(GET_INSCRIPCIONES,{
+        variables:{ 
+            filtro:{ proyecto : _id
+
+        }}
+    });
+  const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
+
+  useEffect(() => {
+    if (data) {
+      toast.success('Inscripcion aprobada con exito');
+
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Error aprobando la inscripcion');
+    }
+  }, [error]);
+
+  const cambiarEstadoInscripcion = () => {
+    aprobarInscripcion({
+      variables: {
+        aprobarInscripcionId : _id,
+      },
+    });
+  };
+
+
+  return (
+    <>
+
+      {(qdata.InscripcionesFiltradas.estado !== 'PENDIENTE') ? (
+        <ButtonLoading2
+          onClick={() => {
+            cambiarEstadoInscripcion();
+          }}
+          text='Aprobar'
+          loading={loading}
+          disabled={false}
+        />
+      ):( <span>agf</span> )}
+    </>
+  );
+};
+
 
 export default EstudiantesProyecto

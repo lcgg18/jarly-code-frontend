@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 
-const CREAR_AVACE= gql`
+const CREAR_AVANCE= gql`
 
 mutation CrearAvance($descripcion: String!, $proyecto: String!, $creadoPor: String!, $id: String!, $fase: Enum_FaseProyecto) {
   crearAvance(descripcion: $descripcion, proyecto: $proyecto, creadoPor: $creadoPor) {
@@ -15,4 +15,13 @@ mutation CrearAvance($descripcion: String!, $proyecto: String!, $creadoPor: Stri
 
 `;
 
-export { CREAR_AVACE };
+const EDITAR_AVANCE = gql`
+mutation EditarAvance($editarAvanceId: String!, $descripcion: String) {
+  editarAvance(id: $editarAvanceId, descripcion: $descripcion) {
+    _id
+  }
+}
+
+`;
+
+export { CREAR_AVANCE, EDITAR_AVANCE };

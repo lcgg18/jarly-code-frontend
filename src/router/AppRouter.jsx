@@ -25,6 +25,7 @@ import Login from "pages/auth/Login";
 import Perfil from "pages/usuarios/Perfil";
 import EditarPerfil from "pages/auth/EditarPerfil";
 import NuevoProyecto from "pages/proyecto/CrearProyecto";
+import EditarAvance from "pages/proyecto/EditarAvance";
 
 
 
@@ -105,6 +106,10 @@ const AppRouter = () => {
                 <Route
                   path="proyectos/avances/:_id"
                   element={<AvancesProyecto />}
+                />
+                <Route
+                  path="proyectos/editarAvances/:_id"
+                  element={<EditarAvance />}
                 />
                 <Route
                   path="proyectos/objetivos/:_id"

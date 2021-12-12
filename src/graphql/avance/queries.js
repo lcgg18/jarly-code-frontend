@@ -2,15 +2,15 @@ import { gql } from '@apollo/client';
 
 const GET_AVANCES = gql`
 
-query FiltrarAvance($idProyecto: String!) {
-  filtrarAvance(idProyecto: $idProyecto) {
+query FiltrarAvance($filtro: FiltroAvances) {
+  filtrarAvance(filtro: $filtro) {
     _id
     fecha
     descripcion
     observaciones
     proyecto {
-      nombre
       _id
+      nombre
     }
     creadoPor {
       nombre

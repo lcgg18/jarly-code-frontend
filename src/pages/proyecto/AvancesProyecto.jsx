@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
 import { GET_AVANCES } from "graphql/avance/queries";
 
 const AvancesProyecto = () => {
   const  {_id}  = useParams();
-  // const idProyecto = toString(_id);
-  console.log(_id);
+
   const { loading, error, data } = useQuery(GET_AVANCES, { 
-    variables: {idProyecto:_id}
+    variables:{
+      filtro:{proyecto : _id},
+    } 
   });
-useEffect((data) => {console.log("data",data)},[data])
-if(data){
-  console.log("data if", data)
-}
+
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
@@ -50,7 +48,7 @@ if(data){
                   </td>
                   <td>{a.observaciones.join(',  ')}</td>
                   <td>
-                    <Link to={`/avances/editar/${a._id}`}>
+                    <Link to={`/proyectos/editarAvances/${a._id}`}>
                       <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
                     </Link>
                   </td>
