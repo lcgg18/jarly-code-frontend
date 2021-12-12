@@ -50,11 +50,13 @@ const Proyectos = () => {
             <th>Estado</th>
             <th>Fase</th>
             <th>Nombre del lider</th>
+            <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
             <th>Correo del lider</th>
             <th>Estudiantes</th>
             <th>Objetivos</th>
             <th>Avances</th>
             <th>Inscribirme</th>
+            </PrivateComponent>
             <th>Editar</th>
           </tr>
         </thead>
@@ -76,6 +78,7 @@ const Proyectos = () => {
                   <td>
                     {p.lider.nombre} {p.lider.apellido}
                   </td>
+                  <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
                   <td>{p.lider.correo}</td>
                   <td>
                     <Link to={`/estudiantes/proyecto/${p._id}`}>
@@ -92,7 +95,6 @@ const Proyectos = () => {
                       <i className="fas fa-chart-pie text-blue-500 hover:text-yellow-400 cursor-pointer" />
                     </Link>
                   </td>
-                  <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
                     <td>
                       
 
@@ -168,7 +170,7 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
   return (
     <>
       {estadoInscripcion !== '' ? (
-        <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
+        <span>{estadoInscripcion}</span>
       ) : (
         <ButtonLoading2
           onClick={() => confirmarInscripcion()}

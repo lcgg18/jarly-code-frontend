@@ -18,6 +18,16 @@ const AvancesProyecto = () => {
 
   return (
     <div>
+      <Link to={`/avances/crear/`}>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white font-bold text-lg py-3 px-6  rounded-xl hover:bg-green-600 shadow-md my-2 disabled:opacity-50 disabled:bg-gray-700"
+          >
+            Crear un avance
+          </button>
+        </Link>
+
+
       <div className='self-start p-3'>
         <Link to='/proyectos'>
           <i className='fas fa-arrow-left' />
@@ -32,6 +42,7 @@ const AvancesProyecto = () => {
             <th>Nombre del Proyecto</th>
             <th>Creador del Avance</th>
             <th>Observación</th>
+            <th>agregar observaciones</th>
             <th>Editar</th>
           </tr>
         </thead>
@@ -47,6 +58,11 @@ const AvancesProyecto = () => {
                     {a.creadoPor.nombre} {a.creadoPor.apellido}
                   </td>
                   <td>{a.observaciones.join(',  ')}</td>
+                  <td>
+                    <Link to={`/proyectos/nuevaobservacion/${a._id}`}>
+                      <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
+                    </Link>
+                  </td>
                   <td>
                     <Link to={`/proyectos/editarAvances/${a._id}`}>
                       <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
