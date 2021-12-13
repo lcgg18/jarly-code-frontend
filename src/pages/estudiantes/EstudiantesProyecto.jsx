@@ -7,6 +7,8 @@ import { APROBAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
 import { toast } from 'react-toastify';
 import ButtonLoading2 from 'components/ButtonLoading2';
 import { Enum_EstadoInscripcion } from 'utils/enums';
+import { RECHAZAR_INSCRIPCION } from 'graphql/inscripcion/mutations';
+
 
 const EstudiantesProyecto = () => {
 
@@ -17,6 +19,7 @@ const EstudiantesProyecto = () => {
 
         }}
     });
+
 
     
 
@@ -41,8 +44,7 @@ const EstudiantesProyecto = () => {
             <th>Identificación</th>
             <th>Rol</th>
             <th>Estado Inscripción</th>
-            <th>Aceptar</th>
-            <th>Rechazar</th>
+            <th>Modificar Estado</th>
           </tr>
         </thead>
         <tbody>
@@ -57,12 +59,10 @@ const EstudiantesProyecto = () => {
                   <td>{Enum_Rol[i.estudiante.rol]}</td>
                   <td>{Enum_EstadoInscripcion[i.estado]}</td>
                   <td>
-                    <Inscripcion  />
-                  </td>
-                  <td>
-                    <Link to={`/usuarios/editar/${i._id}`}>
-                      <i className='fas fa-ban text-red-500 hover:text-red-800 cursor-pointer' />
-                    </Link>
+                    <div className="flex p-2">
+                      <InscripcionAp _id={i}  /> <InscripcionRe _id={i}  />
+                    </div>
+                    
                   </td>
                 </tr>
               );
@@ -73,14 +73,8 @@ const EstudiantesProyecto = () => {
     )
 }
 
-const Inscripcion = () => {
-  const {_id} = useParams();
-    const {  data:qdata } = useQuery(GET_INSCRIPCIONES,{
-        variables:{ 
-            filtro:{ proyecto : _id
-
-        }}
-    });
+const InscripcionAp = (i) => {
+   
   const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
 
   useEffect(() => {
@@ -88,6 +82,8 @@ const Inscripcion = () => {
       toast.success('Inscripcion aprobada con exito');
 
     }
+
+    
   }, [data]);
 
   useEffect(() => {
@@ -97,28 +93,92 @@ const Inscripcion = () => {
   }, [error]);
 
   const cambiarEstadoInscripcion = () => {
-    aprobarInscripcion({
-      variables: {
-        aprobarInscripcionId : _id,
-      },
-    });
+    if(i){
+      aprobarInscripcion({
+        variables: {
+          aprobarInscripcionId:i._id._id
+        },
+      });
+      
+    }
   };
+  const estado = i._id.estado;
+  
 
 
   return (
-    <>
+    <div key={i._id._id}>
 
-      {(qdata.InscripcionesFiltradas.estado !== 'PENDIENTE') ? (
+      {
+      (estado === 'PENDIENTE') ? (
         <ButtonLoading2
           onClick={() => {
             cambiarEstadoInscripcion();
+          
+
           }}
           text='Aprobar'
           loading={loading}
           disabled={false}
+          color='green'
+          
         />
-      ):( <span>agf</span> )}
-    </>
+        
+      ):( <span></span> )}
+    </div>
+  );
+};
+
+const InscripcionRe = (i) => {
+   
+  const [rechazarInscripcion, { data, loading, error }] = useMutation(RECHAZAR_INSCRIPCION);
+
+  useEffect(() => {
+    if (data) {
+      toast.success('Inscripcion rechazada con exito');
+
+    }
+
+    
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Error arechazando la inscripcion');
+    }
+  }, [error]);
+
+  const cambiarEstadoInscripcion = () => {
+    if(i){
+      rechazarInscripcion({
+        variables: {
+          rechazarInscripcionId:i._id._id
+        },
+      });
+      
+    }
+  };
+  const estado = i._id.estado;
+  
+
+
+  return (
+    <div key={i._id._id}>
+
+      {
+      (estado === 'PENDIENTE') ? (
+        <ButtonLoading2
+          onClick={() => {
+            cambiarEstadoInscripcion();
+          }}
+          text='Rechazar'
+          loading={loading}
+          disabled={false}
+          color='red'
+        />
+        
+      ):( <span>Ya se modifico el estado</span> )}
+    </div>
   );
 };
 

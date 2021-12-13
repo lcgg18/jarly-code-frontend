@@ -26,4 +26,13 @@ const APROBAR_INSCRIPCION = gql`
   }
 `;
 
-export {CREAR_INSCRIPCION, APROBAR_INSCRIPCION}
+const RECHAZAR_INSCRIPCION = gql`
+
+mutation RechazarInscripcion($rechazarInscripcionId: String!) {
+  rechazarInscripcion(id: $rechazarInscripcionId) {
+    _id
+  }
+}
+`;
+
+export {CREAR_INSCRIPCION, APROBAR_INSCRIPCION, RECHAZAR_INSCRIPCION}
