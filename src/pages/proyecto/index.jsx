@@ -10,6 +10,7 @@ import { GET_INSCRIPCIONES } from "graphql/inscripcion/queries";
 import { useUser } from "context/userContext";
 import { toast } from "react-toastify";
 import ButtonLoading2 from "components/ButtonLoading2";
+import DropDown from "components/DropDown";
 
 
 
@@ -73,8 +74,22 @@ const Proyectos = () => {
                   {p.fechaFin ? (
                     <td>{p.fechaFin.slice(0, 10)}</td>
                   ) : <td>  No aplica</td>}
-                  <td>{Enum_EstadoProyecto[p.estado]}</td>
-                  <td>{Enum_FaseProyecto[p.fase]}</td>
+                  <td>
+                  <DropDown
+                    name='estado'
+                    defaultValue={[p.estado]}
+                    required={true}
+                    options={Enum_EstadoProyecto}
+                  />
+                    </td>
+                 
+                  <td>
+                  <DropDown size="sm"
+                    name='estado'
+                    defaultValue={[p.fase]}
+                    required={true}
+                    options={Enum_FaseProyecto}
+                  /></td>
                   <td>
                     {p.lider.nombre} {p.lider.apellido}
                   </td>

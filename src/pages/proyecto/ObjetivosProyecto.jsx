@@ -40,7 +40,7 @@ const ObjetivosProyecto = () => {
                   <td>{p.descripcion}</td>
                   <td>{Enum_TipoObjecto[p.tipo]}</td>
                   <td>
-                    <Link to={`/usuarios/editar/${p._id}`}>
+                    <Link to={`/proyectos/editarObjetivo/${p._id}`}>
                       <i className='fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer' />
                     </Link>
                   </td>

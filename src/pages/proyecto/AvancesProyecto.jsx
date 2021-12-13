@@ -18,7 +18,7 @@ const AvancesProyecto = () => {
 
   return (
     <div>
-      <Link to={`/avances/crear/`}>
+      <Link to={`proyectos/crearAvance/`}>
           <button
             type="submit"
             className="bg-blue-500 text-white font-bold text-lg py-3 px-6  rounded-xl hover:bg-green-600 shadow-md my-2 disabled:opacity-50 disabled:bg-gray-700"
