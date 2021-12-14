@@ -33,9 +33,7 @@ const Enum_EstadoInscripcion = {
   PENDIENTE: "Pendiente",
 };
 
-const Enum_FaseProyectoTerminado = {
-  TERMINADO: "Terminado",
-};
+
 
 export {
   Enum_Rol,
@@ -44,5 +42,5 @@ export {
   Enum_FaseProyecto,
   Enum_EstadoProyecto,
   Enum_EstadoInscripcion,
-  Enum_FaseProyectoTerminado
+
 };

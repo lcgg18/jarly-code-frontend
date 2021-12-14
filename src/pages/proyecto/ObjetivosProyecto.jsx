@@ -141,9 +141,8 @@ const EditarObjetivo = ({
         indexObjetivo: index,
         campos: formData,
       },
-    }).catch((e) => {
-      console.log(e);
-      toast.error("Error editando el objetivo");
+    }).catch((error) => {
+      toast.error("Error editando el objetivo", error);
     });
   };
   return (

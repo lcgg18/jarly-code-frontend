@@ -10,14 +10,12 @@ import { GET_INSCRIPCIONES } from "graphql/inscripcion/queries";
 import { useUser } from "context/userContext";
 import { toast } from "react-toastify";
 import ButtonLoading2 from "components/ButtonLoading2";
-import DropDown from "components/DropDown";
-import { Enum_FaseProyectoTerminado } from "utils/enums";
+import { ACTUALIZAR_ESTADO_PROYECTO } from "graphql/proyecto/mutations";
+import { TERMINAR_PROYECTO } from "graphql/proyecto/mutations";
 
 const Proyectos = () => {
   const { loading, error, data } = useQuery(GET_PROYECTOS);
 
-  const [EditarEstado, setEditarEstado] = useState(false);
-  const [EditarFase, setEditarFase] = useState(false);
 
   if (loading) return <div>Loading...</div>;
 
@@ -77,69 +75,11 @@ const Proyectos = () => {
                     <td> No aplica</td>
                   )}
                   <td>
-                    <div className="flex">
-                      {EditarEstado ? (
-                        <div className="flex">
-                          <DropDown
-                            name="estado"
-                            defaultValue={[p.estado]}
-                            required={true}
-                            options={Enum_EstadoProyecto}
-                          />
-
-                          <div className="mt-4 px-3">
-                            <i
-                              className="fas fa-reply text-blue-500 hover:text-yellow-400 cursor-pointer"
-                              onClick={() => setEditarEstado(false)}
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex">
-                          <span>{Enum_EstadoProyecto[p.estado]}</span>
-
-                          <div className="px-3">
-                            <i
-                              className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
-                              onClick={() => setEditarEstado(true)}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <ActivarProyecto id={p._id} estadoP={p.estado} faseP={p.fase} />
                   </td>
 
                   <td>
-                    <div className="flex">
-                      {EditarFase ? (
-                        <div className="flex">
-                          <DropDown
-                            name="fase"
-                            defaultValue={[p.fase]}
-                            required={true}
-                            options={Enum_FaseProyectoTerminado}
-                          />
-
-                          <div className="mt-4 px-3">
-                            <i
-                              className="fas fa-reply text-blue-500 hover:text-yellow-400 cursor-pointer"
-                              onClick={() => setEditarFase(false)}
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex">
-                          <span>{Enum_FaseProyecto[p.fase]}</span>
-
-                          <div className="px-3">
-                            <i
-                              className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
-                              onClick={() => setEditarFase(true)}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                   <FinalizarProyecto id={p._id} faseP={p.fase} />
                   </td>
                   <td>
                     {p.lider.nombre} {p.lider.apellido}
@@ -250,4 +190,104 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
     </>
   );
 };
+
+const ActivarProyecto = ({ id, estadoP, faseP }) => {
+  const [
+    cambiarEstadoProyecto,
+    { data: dataMutation, loading: loadingMutation, error: errorMutation },
+  ] = useMutation(ACTUALIZAR_ESTADO_PROYECTO, {
+    refetchQueries: [{ query: GET_PROYECTOS }],
+  });
+
+  useEffect(() => {
+    if (dataMutation) {
+      toast.success("Se activo el proyecto con exito");
+    }
+  }, [dataMutation]);
+
+  useEffect(() => {
+    if (errorMutation) {
+      toast.error("Error activando el proyecto");
+    }
+  }, [errorMutation]);
+
+  useEffect(() => {}, [loadingMutation]);
+
+  const confirmacionProyecto = () => {
+    cambiarEstadoProyecto({
+      variables: {
+        id,
+        estado: "ACTIVO",
+      },
+    });
+  };
+
+  return (
+    <div>
+      {estadoP === "INACTIVO" && faseP==="NULO" ? (
+        
+
+<ButtonLoading2
+          onClick={() => confirmacionProyecto()}
+          disabled={false}
+          loading={loadingMutation}
+          text="Activar"
+          color="blue"
+        />
+
+      ) : (
+        <span>{Enum_EstadoProyecto[estadoP]}</span>
+      )}
+    </div>
+  );
+};
+
+const FinalizarProyecto = ({ id, faseP }) => {
+  const [
+    cambiarFaseProyecto,
+    { data: dataMutation, loading: loadingMutation, error: errorMutation },
+  ] = useMutation(TERMINAR_PROYECTO, {
+    refetchQueries: [{ query: GET_PROYECTOS }],
+  });
+
+  useEffect(() => {
+    if (dataMutation) {
+      toast.success("Se finalizó el proyecto con exito");
+    }
+  }, [dataMutation]);
+
+  useEffect(() => {
+    if (errorMutation) {
+      toast.error("Error finalizando el proyecto");
+    }
+  }, [errorMutation]);
+
+  useEffect(() => {}, [loadingMutation]);
+
+  const confirmacionProyecto = () => {
+    cambiarFaseProyecto({
+      variables: {
+        id,
+        fase: "TERMINADO",
+      },
+    });
+  };
+
+  return (
+    <div>
+      {faseP === "DESARROLLO" ? (
+        <ButtonLoading2
+          onClick={() => confirmacionProyecto()}
+          disabled={false}
+          loading={loadingMutation}
+          text="Terminar"
+          color="red"
+        />
+      ) : (
+        <span>{Enum_FaseProyecto[faseP]}</span>
+      )}
+    </div>
+  );
+};
+
 export default Proyectos;
