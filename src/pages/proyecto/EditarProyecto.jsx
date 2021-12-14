@@ -9,21 +9,23 @@ import { EDITAR_PROYECTO } from 'graphql/proyecto/mutations';
 
 
 const EditarProyecto = () => {
+    const { _id } = useParams();
 
     const { form, formData, updateFormData } = useFormData(null);
-    const { _id } = useParams();
     
-
+ console.log(_id);
 
     const [editarProyecto, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
     useMutation(EDITAR_PROYECTO, { 
         variables:{
-            editarProyecto: _id
+            id: _id
         }
     });
     
     const submitForm = async (e) => {
         e.preventDefault();
+        formData.presupuesto = parseFloat(formData.presupuesto);
+
         await editarProyecto({
             variables: { _id, ...formData },
         });
@@ -33,7 +35,7 @@ const EditarProyecto = () => {
     useEffect(() => {
         if (dataMutation) {
             toast.success('Proyecto modificado con exito');
-           
+           console.log(dataMutation)
         }
 
     }, [dataMutation]);

@@ -5,19 +5,25 @@ import useFormData from 'hooks/useFormData';
 import Input from 'components/Input';
 import { toast } from 'react-toastify';
 import ButtonLoading from 'components/ButtonLoading';
-import { EDITAR_AVANCE } from 'graphql/avance/mutations';
+import { Enum_TipoObjecto } from 'utils/enums';
+import DropDown from 'components/DropDown';
+import { EDITAR_PROYECTO } from 'graphql/proyecto/mutations';
 
 
 
-const EditarAvance = () => {
+
+
+
+const EditarObjetivo = () => {
+    const { _id } = useParams();
+
 
     const { form, formData, updateFormData } = useFormData(null);
-    const { _id } = useParams();
     
 
 
-    const [editarAvances, { data: dataMutation, loading: loadingMutation, error: errorMutation }] =
-    useMutation(EDITAR_AVANCE, { 
+    const [editarObjetivo,{ data: dataMutation, loading: loadingMutation, error: errorMutation }] =
+    useMutation(EDITAR_PROYECTO, { 
         variables:{
             editarAvanceId: _id
         }
@@ -25,7 +31,7 @@ const EditarAvance = () => {
     
     const submitForm = async (e) => {
         e.preventDefault();
-        await editarAvances({
+        await editarObjetivo({
             variables: { _id, ...formData },
         });
     };
@@ -60,6 +66,12 @@ const EditarAvance = () => {
                 ref={form}
                 className='flex flex-col items-center justify-center'
             >
+                <DropDown
+                          name='estado'
+                          defaultValue={[]}
+                          required={true}
+                          options={Enum_TipoObjecto}
+                        />
                 <Input
                     label='Descripcion:'
                     type='text'
@@ -79,4 +91,4 @@ const EditarAvance = () => {
     )
 }
 
-export default EditarAvance
+export default EditarObjetivo

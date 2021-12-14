@@ -19,7 +19,8 @@ const Proyectos = () => {
 
   const { loading, error, data } = useQuery(GET_PROYECTOS);
 
-  
+  // const [EditarEstado, setEditarEstado]=useState(true);
+
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
@@ -52,11 +53,11 @@ const Proyectos = () => {
             <th>Fase</th>
             <th>Nombre del lider</th>
             <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
-            <th>Correo del lider</th>
-            <th>Estudiantes</th>
-            <th>Objetivos</th>
-            <th>Avances</th>
-            <th>Inscribirme</th>
+              <th>Correo del lider</th>
+              <th>Estudiantes</th>
+              <th>Objetivos</th>
+              <th>Avances</th>
+              <th>Inscribirme</th>
             </PrivateComponent>
             <th>Editar</th>
           </tr>
@@ -75,50 +76,72 @@ const Proyectos = () => {
                     <td>{p.fechaFin.slice(0, 10)}</td>
                   ) : <td>  No aplica</td>}
                   <td>
-                  <DropDown
-                    name='estado'
-                    defaultValue={[p.estado]}
-                    required={true}
-                    options={Enum_EstadoProyecto}
-                  />
-                    </td>
-                 
+                    <div className='flex'>
+                      <div >
+                       {/* {
+                         EditarEstado ? (
+                           <>
+                           <DropDown
+                          name='estado'
+                          defaultValue={[p.estado]}
+                          required={true}
+                          options={Enum_EstadoProyecto}
+                        />
+
+                           </>
+                        
+                        ):()
+                       }  */}
+<span>{Enum_EstadoProyecto[p.estado]}</span>
+                      </div>
+                      <div className='mt-4 px-3'>
+                        <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
+                        // onClick={setEditarEstado(!EditarEstado)}
+                        />
+                      </div>
+
+                    </div>
+
+
+                  </td>
+
                   <td>
-                  <DropDown size="sm"
-                    name='estado'
-                    defaultValue={[p.fase]}
-                    required={true}
-                    options={Enum_FaseProyecto}
-                  /></td>
+                    <DropDown size="sm"
+                      name='estado'
+                      defaultValue={[p.fase]}
+                      required={true}
+                      options={Enum_FaseProyecto}
+                    /></td>
                   <td>
                     {p.lider.nombre} {p.lider.apellido}
                   </td>
                   <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
-                  <td>{p.lider.correo}</td>
-                  <td>
-                    <Link to={`/estudiantes/proyecto/${p._id}`}>
-                      <i className="fas fa-user-friends text-blue-500 hover:text-yellow-400 cursor-pointer" />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/proyectos/objetivos/${p._id}`}>
-                      <i className="fas fa-thumbtack text-blue-500 hover:text-yellow-400 cursor-pointer" />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/proyectos/avances/${p._id}`}>
-                      <i className="fas fa-chart-pie text-blue-500 hover:text-yellow-400 cursor-pointer" />
-                    </Link>
-                  </td>
+                    <td>{p.lider.correo}</td>
                     <td>
-                      
+                      <Link to={`/estudiantes/proyecto/${p._id}`}>
+                        <i className="fas fa-user-friends text-blue-500 hover:text-yellow-400 cursor-pointer" />
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/proyectos/objetivos/${p._id}`}>
+                        <i className="fas fa-thumbtack text-blue-500 hover:text-yellow-400 cursor-pointer" />
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/proyectos/avances/${p._id}`}>
+                        <i className="fas fa-chart-pie text-blue-500 hover:text-yellow-400 cursor-pointer" />
+                      </Link>
+                    </td>
+                    <td>
 
-                        <InscripcionProyecto
-                          idProyecto={p._id}
-                          estado={p.estado}
-                          inscripciones={p.inscripciones}
-                        />
-                      
+
+                      <InscripcionProyecto
+                        idProyecto={p._id}
+                        estado={p.estado}
+                        inscripciones={p.inscripciones}
+
+                      />
+
                     </td>
                   </PrivateComponent>
                   <td>
@@ -137,10 +160,10 @@ const Proyectos = () => {
 };
 
 const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
-  
+
   const { userData } = useUser();
   const [estadoInscripcion, setEstadoInscripcion] = useState('');
-  const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION);
+  const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION, { refetchQueries: [{ GET_INSCRIPCIONES }] });
 
   useEffect(() => {
     if (userData && inscripciones) {
@@ -192,6 +215,7 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
           disabled={estado === 'INACTIVO'}
           loading={loading}
           text='Inscribirme'
+          color='blue'
         />
       )}
     </>

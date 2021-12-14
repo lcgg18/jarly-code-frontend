@@ -23,7 +23,6 @@ const NuevoProyecto = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(formData)
     formData.objetivos = Object.values(formData.objetivos);
     formData.presupuesto = parseFloat(formData.presupuesto);
     formData.lider = userData._id

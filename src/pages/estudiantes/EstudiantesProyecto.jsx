@@ -75,7 +75,7 @@ const EstudiantesProyecto = () => {
 
 const InscripcionAp = (i) => {
    
-  const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
+  const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION, {refetchQueries:[{GET_INSCRIPCIONES}]} );
 
   useEffect(() => {
     if (data) {
