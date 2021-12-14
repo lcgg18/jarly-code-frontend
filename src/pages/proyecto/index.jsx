@@ -11,24 +11,21 @@ import { useUser } from "context/userContext";
 import { toast } from "react-toastify";
 import ButtonLoading2 from "components/ButtonLoading2";
 import DropDown from "components/DropDown";
-
-
+import { Enum_FaseProyectoTerminado } from "utils/enums";
 
 const Proyectos = () => {
-
-
   const { loading, error, data } = useQuery(GET_PROYECTOS);
 
-  // const [EditarEstado, setEditarEstado]=useState(true);
+  const [EditarEstado, setEditarEstado] = useState(false);
+  const [EditarFase, setEditarFase] = useState(false);
 
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
 
-
   return (
     <div>
-      <PrivateComponent roleList={['LIDER', 'ADMINISTRADOR']}>
+      <PrivateComponent roleList={["LIDER", "ADMINISTRADOR"]}>
         <Link to={`/proyectos/crear/`}>
           <button
             type="submit"
@@ -39,8 +36,8 @@ const Proyectos = () => {
         </Link>
       </PrivateComponent>
 
-      <div className='self-start p-3'>
-        <h1 className='font-bold text-xl'>Datos del Proyecto</h1>
+      <div className="self-start p-3">
+        <h1 className="font-bold text-xl">Datos del Proyecto</h1>
       </div>
       <table className="tabla">
         <thead>
@@ -52,7 +49,7 @@ const Proyectos = () => {
             <th>Estado</th>
             <th>Fase</th>
             <th>Nombre del lider</th>
-            <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
+            <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
               <th>Correo del lider</th>
               <th>Estudiantes</th>
               <th>Objetivos</th>
@@ -71,51 +68,83 @@ const Proyectos = () => {
                   <td>{p.presupuesto}</td>
                   {p.fechaInicio ? (
                     <td>{p.fechaInicio.slice(0, 10)}</td>
-                  ) : <td>  Por Iniciar</td>}
+                  ) : (
+                    <td> Por Iniciar</td>
+                  )}
                   {p.fechaFin ? (
                     <td>{p.fechaFin.slice(0, 10)}</td>
-                  ) : <td>  No aplica</td>}
+                  ) : (
+                    <td> No aplica</td>
+                  )}
                   <td>
-                    <div className='flex'>
-                      <div >
-                       {/* {
-                         EditarEstado ? (
-                           <>
-                           <DropDown
-                          name='estado'
-                          defaultValue={[p.estado]}
-                          required={true}
-                          options={Enum_EstadoProyecto}
-                        />
+                    <div className="flex">
+                      {EditarEstado ? (
+                        <div className="flex">
+                          <DropDown
+                            name="estado"
+                            defaultValue={[p.estado]}
+                            required={true}
+                            options={Enum_EstadoProyecto}
+                          />
 
-                           </>
-                        
-                        ):()
-                       }  */}
-<span>{Enum_EstadoProyecto[p.estado]}</span>
-                      </div>
-                      <div className='mt-4 px-3'>
-                        <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
-                        // onClick={setEditarEstado(!EditarEstado)}
-                        />
-                      </div>
+                          <div className="mt-4 px-3">
+                            <i
+                              className="fas fa-reply text-blue-500 hover:text-yellow-400 cursor-pointer"
+                              onClick={() => setEditarEstado(false)}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex">
+                          <span>{Enum_EstadoProyecto[p.estado]}</span>
 
+                          <div className="px-3">
+                            <i
+                              className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
+                              onClick={() => setEditarEstado(true)}
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
-
-
                   </td>
 
                   <td>
-                    <DropDown size="sm"
-                      name='estado'
-                      defaultValue={[p.fase]}
-                      required={true}
-                      options={Enum_FaseProyecto}
-                    /></td>
+                    <div className="flex">
+                      {EditarFase ? (
+                        <div className="flex">
+                          <DropDown
+                            name="fase"
+                            defaultValue={[p.fase]}
+                            required={true}
+                            options={Enum_FaseProyectoTerminado}
+                          />
+
+                          <div className="mt-4 px-3">
+                            <i
+                              className="fas fa-reply text-blue-500 hover:text-yellow-400 cursor-pointer"
+                              onClick={() => setEditarFase(false)}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex">
+                          <span>{Enum_FaseProyecto[p.fase]}</span>
+
+                          <div className="px-3">
+                            <i
+                              className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
+                              onClick={() => setEditarFase(true)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </td>
                   <td>
                     {p.lider.nombre} {p.lider.apellido}
                   </td>
-                  <PrivateComponent roleList={['ESTUDIANTE', 'ADMINISTRADOR']}>
+                  <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
                     <td>{p.lider.correo}</td>
                     <td>
                       <Link to={`/estudiantes/proyecto/${p._id}`}>
@@ -133,15 +162,11 @@ const Proyectos = () => {
                       </Link>
                     </td>
                     <td>
-
-
                       <InscripcionProyecto
                         idProyecto={p._id}
                         estado={p.estado}
                         inscripciones={p.inscripciones}
-
                       />
-
                     </td>
                   </PrivateComponent>
                   <td>
@@ -149,7 +174,6 @@ const Proyectos = () => {
                       <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
                     </Link>
                   </td>
-
                 </tr>
               );
             })}
@@ -160,14 +184,18 @@ const Proyectos = () => {
 };
 
 const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
-
   const { userData } = useUser();
-  const [estadoInscripcion, setEstadoInscripcion] = useState('');
-  const [crearInscripcion, { data, loading, error }] = useMutation(CREAR_INSCRIPCION, { refetchQueries: [{ GET_INSCRIPCIONES }] });
+  const [estadoInscripcion, setEstadoInscripcion] = useState("");
+  const [crearInscripcion, { data, loading, error }] = useMutation(
+    CREAR_INSCRIPCION,
+    { refetchQueries: [{ GET_INSCRIPCIONES }] }
+  );
 
   useEffect(() => {
     if (userData && inscripciones) {
-      const flt = inscripciones.filter((el) => el.estudiante._id === userData._id);
+      const flt = inscripciones.filter(
+        (el) => el.estudiante._id === userData._id
+      );
       if (flt.length > 0) {
         setEstadoInscripcion(flt[0].estado);
       }
@@ -176,46 +204,47 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
 
   const { data: dataInscripcion } = useQuery(GET_INSCRIPCIONES, {
     variables: {
-      flitro: { estudiante: userData._id }
-    }
+      flitro: { estudiante: userData._id },
+    },
   });
-  useEffect((dataInscripcion) => {
-    if (dataInscripcion) {
-      console.log(dataInscripcion)
-    }
-  }, [dataInscripcion])
-
-
-
-
+  useEffect(
+    (dataInscripcion) => {
+      if (dataInscripcion) {
+        console.log(dataInscripcion);
+      }
+    },
+    [dataInscripcion]
+  );
 
   useEffect(() => {
     if (data) {
-      toast.success('inscripcion creada con exito');
+      toast.success("inscripcion creada con exito");
     }
   }, [data]);
 
   useEffect(() => {
     if (error) {
-      toast.error('No se pudo crear la inscripcion');
+      toast.error("No se pudo crear la inscripcion");
     }
   }, [error]);
 
   const confirmarInscripcion = () => {
-    crearInscripcion({ variables: { proyecto: idProyecto, estudiante: userData._id } });
+    crearInscripcion({
+      variables: { proyecto: idProyecto, estudiante: userData._id },
+    });
   };
 
   return (
     <>
-      {estadoInscripcion !== '' ? (
+      {estadoInscripcion !== "" ? (
         <span>{estadoInscripcion}</span>
       ) : (
         <ButtonLoading2
           onClick={() => confirmarInscripcion()}
-          disabled={estado === 'INACTIVO'}
+          disabled={estado === "INACTIVO"}
           loading={loading}
-          text='Inscribirme'
-          color='blue'
+          text="Inscribirme"
+          color="blue"
         />
       )}
     </>
