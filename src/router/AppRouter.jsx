@@ -26,7 +26,6 @@ import Perfil from "pages/usuarios/Perfil";
 import EditarPerfil from "pages/auth/EditarPerfil";
 import NuevoProyecto from "pages/proyecto/CrearProyecto";
 import EditarAvance from "pages/proyecto/EditarAvance";
-import EditarObjetivo from "pages/proyecto/EditarObjetivo";
 import CrearAvance from "pages/proyecto/CrearAvance";
 
 
@@ -119,14 +118,10 @@ const AppRouter = () => {
                   path="proyectos/objetivos/:_id"
                   element={<ObjetivosProyecto />}
                 />
-                <Route
-                  path="proyectos/editarObjetivo/:_id"
-                  element={<EditarObjetivo />}
-                />
-               
+                               
                   <Route path="proyectos/crear" element={<NuevoProyecto />} />
                
-                
+                             
                 <Route
                   path="/estudiantes/proyecto/:_id"
                   element={<EstudiantesProyecto />}

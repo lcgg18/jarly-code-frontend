@@ -7,10 +7,7 @@ import { Enum_Rol } from 'utils/enums';
 
 const Perfil = () => {
     const { userData } = useUser();
-    console.log("userD", userData)
-
-
-
+    
     return (
         <div className='flex flex-col items-center  w-full h-full p-20 my-6'>
             <Avatar/>

@@ -11,9 +11,13 @@ import { toast } from "react-toastify";
 import DropDown from "components/DropDown";
 import Input from "components/Input";
 import ButtonLoading from "components/ButtonLoading";
+import { nanoid } from "nanoid";
 
 const ObjetivosProyecto = () => {
   const { _id } = useParams();
+  const [nuevoIndex, setIndex] = useState();
+  const [nuevaDescripcion, setDescripcion] = useState()
+  const [nuevoTipoObjetivo, setTipoObjetivo] = useState();
   const [showDialog, setShowDialog] = useState(false);
   const { loading, error, data } = useQuery(GET_PROYECTO, {
     variables: { id: _id },
@@ -23,6 +27,7 @@ const ObjetivosProyecto = () => {
 
   if (error) return <div>Error...</div>;
 
+  console.log(nuevoIndex)
   return (
     <>
       <div className="p-5">
@@ -52,7 +57,10 @@ const ObjetivosProyecto = () => {
                       <i
                         className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
                         onClick={() => {
+                          setIndex(index);
                           setShowDialog(true);
+                          setDescripcion(objetivo.descripcion);
+                          setTipoObjetivo(objetivo.tipo)
                         }}
                       />
                     </td>
@@ -63,22 +71,18 @@ const ObjetivosProyecto = () => {
         </table>
       </div>
       <div>
-{data && data.Proyecto.objetivos.map((objetivo, index) => {
-      return(
-       <InfoObjetivos
-        key={index}
-        index={index}
-        idProyecto={_id}
-        descripcion={objetivo.descripcion}
-        tipo={objetivo.tipo}
-        setShowEditDialog
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
-      />
-)})}
+       
+              <InfoObjetivos
+                index={nuevoIndex}
+                idProyecto={_id}
+                descripcion={nuevaDescripcion}
+                tipo={nuevoTipoObjetivo}
+                setShowEditDialog
+                showDialog={showDialog}
+                setShowDialog={setShowDialog}
+              />
+   
       </div>
-      
-      
     </>
   );
 };
@@ -135,10 +139,11 @@ const EditarObjetivo = ({
 
   const submitForm = (e) => {
     e.preventDefault();
+
     editarObjetivo({
       variables: {
-        idProyecto,
         indexObjetivo: index,
+        idProyecto: idProyecto,
         campos: formData,
       },
     }).catch((error) => {
