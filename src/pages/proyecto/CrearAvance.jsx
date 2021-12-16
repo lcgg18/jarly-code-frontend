@@ -8,11 +8,12 @@ import useFormData from "hooks/useFormData";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const CrearAvance = ({  setOpenDialog }) => {
-    const { proyecto } = useParams();
+const CrearAvance = () => {
+    const { _id } = useParams();
     const { userData } = useUser();
     const { form, formData, updateFormData } = useFormData();
   
+    console.log(_id)
     const [crearAvance, { loading }] = useMutation(CREAR_AVANCE, {
       refetchQueries: [GET_AVANCES],
     });
@@ -21,11 +22,10 @@ const CrearAvance = ({  setOpenDialog }) => {
       e.preventDefault();
         
       crearAvance({
-        variables: { ...formData, proyecto ,creadoPor: userData._id },
+        variables: { ...formData, proyecto:_id ,creadoPor: userData._id },
       })
         .then(() => {
           toast.success('avance creado con exito');
-          setOpenDialog(false);
         })
         .catch(() => {
           toast.error('error creando el avance');
