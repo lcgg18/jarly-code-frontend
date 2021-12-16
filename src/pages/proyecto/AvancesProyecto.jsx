@@ -71,7 +71,7 @@ const AvancesProyecto = () => {
                   <td>
                     {a.creadoPor.nombre} {a.creadoPor.apellido}
                   </td>
-                  <td>{a.observaciones.join(",  ")}</td>
+                  <td>{console.log(data.filtrarAvance.indexOf) }{a.observaciones.join(",  ")}</td>
                   <PrivateComponent roleList={["LIDER"]}>
                     <td>
                       <Link to={`/proyectos/nuevaobservacion/${a._id}`}>

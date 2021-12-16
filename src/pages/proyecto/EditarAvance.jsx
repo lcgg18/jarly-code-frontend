@@ -46,7 +46,7 @@ const EditarAvance = () => {
         
     }, [errorMutation]);
 
-    if (loadingMutation) return <div>Loading</div>;
+    if (loadingMutation) return <div>Loading...</div>;
 
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
