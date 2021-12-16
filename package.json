@@ -2,11 +2,7 @@
   "name": "gestion-de-proyectos-jarly",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.x",
-    "npm": "7.24.1",
-    "yarn": "1.22.17"
-  },
+ 
   "dependencies": {
     "@apollo/client": "^3.5.5",
     "@apollo/react-hooks": "^4.0.0",
