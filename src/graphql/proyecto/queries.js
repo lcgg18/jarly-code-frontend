@@ -33,4 +33,19 @@ query Proyecto($id: String!) {
 }
 `;
 
-export { GET_PROYECTOS, GET_PROYECTO}
+const PROYECTOS_LIDERADOS= gql`
+
+query Query {
+  ProyectosLiderados {
+    _id
+    nombre
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    fase
+  }
+}
+`;
+
+export { GET_PROYECTOS, GET_PROYECTO, PROYECTOS_LIDERADOS}

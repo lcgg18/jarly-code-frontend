@@ -16,14 +16,13 @@ import { TERMINAR_PROYECTO } from "graphql/proyecto/mutations";
 const Proyectos = () => {
   const { loading, error, data } = useQuery(GET_PROYECTOS);
 
-
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
 
   return (
     <div>
-      <PrivateComponent roleList={["LIDER", "ADMINISTRADOR"]}>
+      <PrivateComponent roleList={["LIDER"]}>
         <Link to={`/proyectos/crear/`}>
           <button
             type="submit"
@@ -46,15 +45,22 @@ const Proyectos = () => {
             <th>Fecha final</th>
             <th>Estado</th>
             <th>Fase</th>
-            <th>Nombre del lider</th>
             <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
+              <th>Nombre del lider</th>
               <th>Correo del lider</th>
-              <th>Estudiantes</th>
+            </PrivateComponent>
+            
+              <PrivateComponent roleList={["LIDER","ESTUDIANTE"]}>
+               <th>Estudiantes</th>
               <th>Objetivos</th>
-              <th>Avances</th>
+              <th>Avances</th> 
+              </PrivateComponent>
+              <PrivateComponent roleList={["ESTUDIANTE"]}> 
               <th>Inscribirme</th>
             </PrivateComponent>
-            <th>Editar</th>
+            <PrivateComponent roleList={["ADMINISTRADOR"]}>
+              <th>Editar</th>
+            </PrivateComponent>
           </tr>
         </thead>
         <tbody>
@@ -74,18 +80,39 @@ const Proyectos = () => {
                   ) : (
                     <td> No aplica</td>
                   )}
-                  <td>
-                    <ActivarProyecto id={p._id} estadoP={p.estado} faseP={p.fase} />
-                  </td>
-
-                  <td>
-                   <FinalizarProyecto id={p._id} faseP={p.fase} />
-                  </td>
-                  <td>
+                  <PrivateComponent roleList={["ESTUDIANTE","LIDER"]}>
+                    <td>
+                      <span>{Enum_EstadoProyecto[p.estado]}</span>
+                    </td>
+                  </PrivateComponent>
+                  <PrivateComponent roleList={["ADMINISTRADOR"]}>
+                    <td>
+                      <ActivarProyecto
+                        id={p._id}
+                        estadoP={p.estado}
+                        faseP={p.fase}
+                      />
+                    </td>
+                  </PrivateComponent>
+                  <PrivateComponent roleList={["ESTUDIANTE","LIDER"]}>
+                    <td>
+                      <span>{Enum_FaseProyecto[p.fase]}</span>
+                    </td>
+                  </PrivateComponent>
+                  <PrivateComponent roleList={["ADMINISTRADOR"]}>
+                    <td>
+                      <FinalizarProyecto id={p._id} faseP={p.fase} />
+                    </td>
+                  </PrivateComponent>
+                  <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
+                    <td>
                     {p.lider.nombre} {p.lider.apellido}
                   </td>
-                  <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
+                  
                     <td>{p.lider.correo}</td>
+                  </PrivateComponent>
+                  
+                    <PrivateComponent roleList={["ESTUDIANTE","LIDER"]}>
                     <td>
                       <Link to={`/estudiantes/proyecto/${p._id}`}>
                         <i className="fas fa-user-friends text-blue-500 hover:text-yellow-400 cursor-pointer" />
@@ -101,19 +128,24 @@ const Proyectos = () => {
                         <i className="fas fa-chart-pie text-blue-500 hover:text-yellow-400 cursor-pointer" />
                       </Link>
                     </td>
-                    <td>
+                    <PrivateComponent roleList={["ESTUDIANTE"]}>
+                      <td>
                       <InscripcionProyecto
                         idProyecto={p._id}
                         estado={p.estado}
                         inscripciones={p.inscripciones}
                       />
                     </td>
+                    </PrivateComponent>
+                    
                   </PrivateComponent>
-                  <td>
-                    <Link to={`/proyectos/editar/${p._id}`}>
-                      <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
-                    </Link>
-                  </td>
+                  <PrivateComponent roleList={["ADMINISTRADOR"]}>
+                    <td>
+                      <Link to={`/proyectos/editar/${p._id}`}>
+                        <i className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer" />
+                      </Link>
+                    </td>
+                  </PrivateComponent>
                 </tr>
               );
             })}
@@ -224,17 +256,14 @@ const ActivarProyecto = ({ id, estadoP, faseP }) => {
 
   return (
     <div>
-      {estadoP === "INACTIVO" && faseP==="NULO" ? (
-        
-
-<ButtonLoading2
+      {estadoP === "INACTIVO" && faseP === "NULO" ? (
+        <ButtonLoading2
           onClick={() => confirmacionProyecto()}
           disabled={false}
           loading={loadingMutation}
           text="Activar"
           color="blue"
         />
-
       ) : (
         <span>{Enum_EstadoProyecto[estadoP]}</span>
       )}

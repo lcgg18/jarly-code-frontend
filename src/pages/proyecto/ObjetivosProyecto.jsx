@@ -11,12 +11,12 @@ import { toast } from "react-toastify";
 import DropDown from "components/DropDown";
 import Input from "components/Input";
 import ButtonLoading from "components/ButtonLoading";
-import { nanoid } from "nanoid";
+import PrivateComponent from "components/PrivateComponet";
 
 const ObjetivosProyecto = () => {
   const { _id } = useParams();
   const [nuevoIndex, setIndex] = useState();
-  const [nuevaDescripcion, setDescripcion] = useState()
+  const [nuevaDescripcion, setDescripcion] = useState();
   const [nuevoTipoObjetivo, setTipoObjetivo] = useState();
   const [showDialog, setShowDialog] = useState(false);
   const { loading, error, data } = useQuery(GET_PROYECTO, {
@@ -27,14 +27,21 @@ const ObjetivosProyecto = () => {
 
   if (error) return <div>Error...</div>;
 
-  console.log(nuevoIndex)
+  console.log(nuevoIndex);
   return (
     <>
       <div className="p-5">
         <div className="self-start p-3">
-          <Link to="/proyectos">
-            <i className="fas fa-arrow-left" />
-          </Link>
+          <PrivateComponent roleList={["LIDER"]}>
+            <Link to="/proyectosliderados">
+              <i className="fas fa-arrow-left" />
+            </Link>
+          </PrivateComponent>
+          <PrivateComponent roleList={["ESTUDIANTE"]}>
+            <Link to="/proyectos">
+              <i className="fas fa-arrow-left" />
+            </Link>
+          </PrivateComponent>
           <h1 className="font-bold text-xl">Objetivos del Proyecto</h1>
         </div>
 
@@ -43,7 +50,9 @@ const ObjetivosProyecto = () => {
             <tr>
               <th>Descripción</th>
               <th>Tipo</th>
-              <th>Editar</th>
+              <PrivateComponent roleList={["LIDER"]}>
+                <th>Editar</th>
+              </PrivateComponent>
             </tr>
           </thead>
           <tbody>
@@ -53,17 +62,19 @@ const ObjetivosProyecto = () => {
                   <tr key={index}>
                     <td>{objetivo.descripcion}</td>
                     <td>{Enum_TipoObjecto[objetivo.tipo]}</td>
-                    <td>
-                      <i
-                        className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
-                        onClick={() => {
-                          setIndex(index);
-                          setShowDialog(true);
-                          setDescripcion(objetivo.descripcion);
-                          setTipoObjetivo(objetivo.tipo)
-                        }}
-                      />
-                    </td>
+                    <PrivateComponent roleList={["LIDER"]}>
+                      <td>
+                        <i
+                          className="fas fa-pen text-blue-500 hover:text-yellow-400 cursor-pointer"
+                          onClick={() => {
+                            setIndex(index);
+                            setShowDialog(true);
+                            setDescripcion(objetivo.descripcion);
+                            setTipoObjetivo(objetivo.tipo);
+                          }}
+                        />
+                      </td>
+                    </PrivateComponent>
                   </tr>
                 );
               })}
@@ -71,17 +82,15 @@ const ObjetivosProyecto = () => {
         </table>
       </div>
       <div>
-       
-              <InfoObjetivos
-                index={nuevoIndex}
-                idProyecto={_id}
-                descripcion={nuevaDescripcion}
-                tipo={nuevoTipoObjetivo}
-                setShowEditDialog
-                showDialog={showDialog}
-                setShowDialog={setShowDialog}
-              />
-   
+        <InfoObjetivos
+          index={nuevoIndex}
+          idProyecto={_id}
+          descripcion={nuevaDescripcion}
+          tipo={nuevoTipoObjetivo}
+          setShowEditDialog
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+        />
       </div>
     </>
   );
