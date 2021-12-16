@@ -104,7 +104,7 @@ const AppRouter = () => {
                   element={<EditarProyecto />}
                 />
                  <Route
-                  path="proyectos/avance/crear"
+                  path="proyectos/avance/crear/:_id"
                   element={<CrearAvance />}
                 />
                 <Route
