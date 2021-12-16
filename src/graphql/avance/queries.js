@@ -2,23 +2,24 @@ import { gql } from '@apollo/client';
 
 const GET_AVANCES = gql`
 
-
-query Avances {
-    Avances {
+query FiltrarAvance($filtro: FiltroAvances) {
+  filtrarAvance(filtro: $filtro) {
+    _id
+    fecha
+    descripcion
+    observaciones
+    proyecto {
       _id
-      fecha
-      descripcion
-      observaciones
-      proyecto {
-        nombre
-      }
-      creadoPor {
-        nombre
-        apellido
-        estado
-      }
+      nombre
     }
-  }`;
+    creadoPor {
+      nombre
+      apellido
+      estado
+    }
+  }
+}
+  `;
 
 
 export { GET_AVANCES}

@@ -2,19 +2,28 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "context/authContext";
 import PrivateRoute from "./PrivateRoute";
+import { useUser } from "context/userContext";
 
 const SidebarLinks = () => {
+  const { userData } = useUser();
   return (
     <ul className="mt-6">
-      <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
+
+      <h3 className="flex items-center justify-center text-xl mx-3 font-semibold">Hola... {userData.nombre}</h3>
+      <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR', 'LIDER', 'ESTUDIANTE']}>
+        <SidebarRoute to="" title="Inicio" icon="fas fa-home" />
+      </PrivateRoute>
+
+      <SidebarRoute to="/perfil" title="Perfil" icon="fas fa-id-badge" />
       <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR']}>
         <SidebarRoute to="/usuarios" title="Usuarios" icon="fas fa-user" />
+      </PrivateRoute>
+              
+      <PrivateRoute estadoList={['AUTORIZADO']} roleList={['ADMINISTRADOR', 'ESTUDIANTE']}>
         <SidebarRoute to="/proyectos" title="Proyectos" icon="fas fa-tasks" />
-        <SidebarRoute
-          to="/estudiantes"
-          title="Estudiantes"
-          icon="fas fa-user-friends"
-        />
+      </PrivateRoute>
+      <PrivateRoute estadoList={['AUTORIZADO']} roleList={['LIDER']}>
+        <SidebarRoute to="/proyectosliderados" title="Mis Proyectos" icon="fas fa-tasks" />
       </PrivateRoute>
 
       <Logout />
@@ -44,7 +53,7 @@ const Logo = () => {
   return (
     <div className="py-3 w-full flex flex-col items-center justify-center rounded-xld-m">
       <img src="jarlyLogo.png" alt="Logo" className="h-17 rounded-2xl" />
-      <span className="my-4 text-2xl font-bold text-center">
+      <span className="my-4 text-xl font-bold text-center">
         Modulo de Gestión
       </span>
     </div>

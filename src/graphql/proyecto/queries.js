@@ -19,9 +19,33 @@ query Proyectos {
     
   }
 }
-
-
 `;
 
+const GET_PROYECTO = gql`
+query Proyecto($id: String!) {
+  Proyecto(_id: $id) {
+    objetivos {
+      _id
+      descripcion
+      tipo
+    }
+  }
+}
+`;
 
-export { GET_PROYECTOS}
+const PROYECTOS_LIDERADOS= gql`
+
+query Query {
+  ProyectosLiderados {
+    _id
+    nombre
+    presupuesto
+    fechaInicio
+    fechaFin
+    estado
+    fase
+  }
+}
+`;
+
+export { GET_PROYECTOS, GET_PROYECTO, PROYECTOS_LIDERADOS}

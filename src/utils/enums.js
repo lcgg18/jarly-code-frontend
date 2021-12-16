@@ -32,6 +32,9 @@ const Enum_EstadoInscripcion = {
   RECHAZADO: "Rechazado",
   PENDIENTE: "Pendiente",
 };
+
+
+
 export {
   Enum_Rol,
   Enum_EstadoUsuario,
@@ -39,4 +42,5 @@ export {
   Enum_FaseProyecto,
   Enum_EstadoProyecto,
   Enum_EstadoInscripcion,
+
 };

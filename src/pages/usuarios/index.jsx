@@ -4,6 +4,7 @@ import { GET_USUARIOS } from 'graphql/usuario/queries';
 import { Link } from 'react-router-dom';
 import { Enum_Rol } from 'utils/enums';
 import { Enum_EstadoUsuario } from 'utils/enums';
+import PrivateComponent from 'components/PrivateComponet';
 
 const Usuarios = () => {
   const { loading, error, data } = useQuery(GET_USUARIOS);
@@ -14,8 +15,11 @@ const Usuarios = () => {
 
 
   return (
-    <div>
-        Datos Usuarios: 
+ <PrivateComponent roleList={['ADMINISTRADOR']}>
+<div>
+<div className='self-start p-3'>
+        <h1 className='font-bold text-xl'>Datos de Usuarios</h1>
+      </div>
       <table className='tabla'>
         <thead>
           <tr>
@@ -50,6 +54,10 @@ const Usuarios = () => {
         </tbody>
       </table>
     </div>
+
+ </PrivateComponent>
+      
+    
   );
 };
 
