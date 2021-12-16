@@ -22,16 +22,9 @@ const Proyectos = () => {
 
   return (
     <div>
-      <PrivateComponent roleList={["LIDER"]}>
-        <Link to={`/proyectos/crear/`}>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white font-bold text-lg py-3 px-6  rounded-xl hover:bg-green-600 shadow-md my-2 disabled:opacity-50 disabled:bg-gray-700"
-          >
-            Crear un proyecto
-          </button>
-        </Link>
-      </PrivateComponent>
+    <PrivateComponent roleList={["ESTUDIANTE", "ADMINISTRADOR"]}>
+        
+      
 
       <div className="self-start p-3">
         <h1 className="font-bold text-xl">Datos del Proyecto</h1>
@@ -151,7 +144,9 @@ const Proyectos = () => {
             })}
         </tbody>
       </table>
+      </PrivateComponent>
     </div>
+    
   );
 };
 

@@ -28,6 +28,7 @@ import NuevoProyecto from "pages/proyecto/CrearProyecto";
 import EditarAvance from "pages/proyecto/EditarAvance";
 import CrearAvance from "pages/proyecto/CrearAvance";
 import ProyectosLiderados from "pages/proyecto/ProyectosLiderados";
+import CrearObservaciones from "pages/proyecto/CrearObservaciones";
 
 
 
@@ -122,6 +123,7 @@ const AppRouter = () => {
                                
                   <Route path="proyectos/crear" element={<NuevoProyecto />} />
                
+                  <Route path="proyectos/nuevaobservacion/:_id" element={<CrearObservaciones />} />
                              
                 <Route
                   path="/estudiantes/proyecto/:_id"
