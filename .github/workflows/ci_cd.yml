@@ -6,7 +6,7 @@ name: CI_CD
 on:
   # Triggers the workflow on push or pull request events but only for the development branch
   push:
-    branches: [ main, test, development ]
+    branches: [ development ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,6 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2
 
       # installs dependences
@@ -27,7 +28,7 @@ jobs:
        run: yarn install
 
       - name: Compilacion del proyecto 
-       run: yarn build
+        run: yarn build
   test:
      # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -41,8 +42,8 @@ jobs:
       # installs dependences
       - name: Instalacion de dependencias 
 
-       run: yarn install
+        run: yarn install
 
       - name: Compilacion del proyecto 
-       run: yarn test
+        run: yarn test
     needs: [build]
