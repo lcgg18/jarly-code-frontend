@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: action/setuo-node@v2
+      - uses: action/setup-node@v2
 
       # installs dependences
       - name: Instalacion de dependencias 
