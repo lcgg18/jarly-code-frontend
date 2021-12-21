@@ -1,5 +1,4 @@
 import { useUser } from "context/userContext";
-// import { toast } from "react-toastify";
 
 const PrivateRoute = ({ estadoList, roleList, children }) => {
   const { userData } = useUser();
