@@ -9,6 +9,7 @@ import ButtonLoading2 from "components/ButtonLoading2";
 import { Enum_EstadoInscripcion } from "utils/enums";
 import { RECHAZAR_INSCRIPCION } from "graphql/inscripcion/mutations";
 import PrivateComponent from "components/PrivateComponet";
+import ButtonLoading3 from "components/ButtonLoading3";
 
 const EstudiantesProyecto = () => {
   const { _id } = useParams();
@@ -117,7 +118,6 @@ const InscripcionAp = (i) => {
           text="Aprobar"
           loading={loading}
           disabled={false}
-          color="green"
         />
       ) : (
         <span></span>
@@ -156,14 +156,13 @@ const InscripcionRe = (i) => {
   return (
     <div key={i._id._id}>
       {estado === "PENDIENTE" ? (
-        <ButtonLoading2
+        <ButtonLoading3
           onClick={() => {
             cambiarEstadoInscripcion();
           }}
           text="Rechazar"
           loading={loading}
           disabled={false}
-          color="red"
         />
       ) : (
         <span>Ya se modifico el estado</span>
