@@ -34,8 +34,8 @@ import CrearObservaciones from "pages/proyecto/CrearObservaciones";
 
 const httpLink = createHttpLink({
     // uri:"http://localhost:4000/graphql",
-    // uri: process.env.REACT_APP_HTTP_LINK,
-    uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
+    uri: process.env.REACT_APP_HTTP_LINK,
+    // uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
   });
   
   const authLink = setContext((_, { headers }) => {
