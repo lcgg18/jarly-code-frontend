@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import ButtonLoading2 from "components/ButtonLoading2";
 import { ACTUALIZAR_ESTADO_PROYECTO } from "graphql/proyecto/mutations";
 import { TERMINAR_PROYECTO } from "graphql/proyecto/mutations";
+import ButtonLoading3 from "components/ButtonLoading3";
 
 const Proyectos = () => {
   const { loading, error, data } = useQuery(GET_PROYECTOS);
@@ -211,7 +212,6 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
           disabled={estado === "INACTIVO"}
           loading={loading}
           text="Inscribirme"
-          color="blue"
         />
       )}
     </>
@@ -257,7 +257,6 @@ const ActivarProyecto = ({ id, estadoP, faseP }) => {
           disabled={false}
           loading={loadingMutation}
           text="Activar"
-          color="blue"
         />
       ) : (
         <span>{Enum_EstadoProyecto[estadoP]}</span>
@@ -300,12 +299,11 @@ const FinalizarProyecto = ({ id, faseP }) => {
   return (
     <div>
       {faseP === "DESARROLLO" ? (
-        <ButtonLoading2
+        <ButtonLoading3
           onClick={() => confirmacionProyecto()}
           disabled={false}
           loading={loadingMutation}
           text="Terminar"
-          color="red"
         />
       ) : (
         <span>{Enum_FaseProyecto[faseP]}</span>
