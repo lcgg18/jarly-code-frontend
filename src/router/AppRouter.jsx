@@ -30,28 +30,26 @@ import CrearAvance from "pages/proyecto/CrearAvance";
 import ProyectosLiderados from "pages/proyecto/ProyectosLiderados";
 import CrearObservaciones from "pages/proyecto/CrearObservaciones";
 
-
-
 const httpLink = createHttpLink({
-    // uri:"http://localhost:4000/graphql",
-    uri: process.env.REACT_APP_HTTP_LINK,
-    // uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
-  });
-  
-  const authLink = setContext((_, { headers }) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
-    };
-  });
-  
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
-  });
+  // uri:"http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_HTTP_LINK,
+  // uri: "https://backend-gestion-de-proyectos.herokuapp.com/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
+});
 
 const AppRouter = () => {
   const [userData, setUserData] = useState({});
@@ -88,7 +86,7 @@ const AppRouter = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<PrivateLayout />}>
-                <Route path="perfil" element={<Perfil />}/>
+                <Route path="perfil" element={<Perfil />} />
 
                 <Route path="" element={<Index />} />
                 <Route path="usuarios/" element={<Usuarios />} />
@@ -96,15 +94,12 @@ const AppRouter = () => {
                   path="usuarios/editar/:_id"
                   element={<EditarUsuario />}
                 />
-                <Route
-                  path="perfil/editar/:_id"
-                  element={<EditarPerfil />}
-                />                 
+                <Route path="perfil/editar/:_id" element={<EditarPerfil />} />
                 <Route
                   path="proyectos/editar/:_id"
                   element={<EditarProyecto />}
                 />
-                 <Route
+                <Route
                   path="proyectos/avance/crear/:_id"
                   element={<CrearAvance />}
                 />
@@ -120,16 +115,22 @@ const AppRouter = () => {
                   path="proyectos/objetivos/:_id"
                   element={<ObjetivosProyecto />}
                 />
-                               
-                  <Route path="proyectos/crear" element={<NuevoProyecto />} />
-               
-                  <Route path="proyectos/nuevaobservacion/:_id" element={<CrearObservaciones />} />
-                             
+
+                <Route path="proyectos/crear" element={<NuevoProyecto />} />
+
+                <Route
+                  path="proyectos/nuevaobservacion/:_id"
+                  element={<CrearObservaciones />}
+                />
+
                 <Route
                   path="/estudiantes/proyecto/:_id"
                   element={<EstudiantesProyecto />}
                 />
-                <Route path="proyectosliderados" element={<ProyectosLiderados />} />
+                <Route
+                  path="proyectosliderados"
+                  element={<ProyectosLiderados />}
+                />
                 <Route path="proyectos" element={<Proyectos />} />
               </Route>
               <Route path="/auth" element={<AuthLayout />}>
@@ -142,6 +143,6 @@ const AppRouter = () => {
       </AuthContext.Provider>
     </ApolloProvider>
   );
-}
+};
 
-export default AppRouter
+export default AppRouter;
